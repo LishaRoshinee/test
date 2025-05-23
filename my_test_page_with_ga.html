@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My GA & On-Page Counter Test Page</title>
+    <!-- Google tag (gtag.js) - REPLACE YOUR_MEASUREMENT_ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      // **** REPLACE 'YOUR_MEASUREMENT_ID' WITH YOUR ACTUAL ID ****
+      gtag('config', 'G-PYL58ZVP2B');
+    </script>
+</head>
+<body>
+    <h1>Test Page with On-Page Counter!</h1>
+    <p>Each time this page loads in the iframe, the counter below should increase.</p>
+    <p>Current time: <span id="timestamp"></span></p>
+    <h2>On-Page "Visit" Count (for this browser): <span id="onPageVisitCount">Loading...</span></h2>
+
+    <script>
+        document.getElementById('timestamp').innerText = new Date().toLocaleTimeString();
+
+        // Simple On-Page Counter Logic
+        function incrementAndDisplayCounter() {
+            let count = localStorage.getItem('myPageVisitCount');
+            if (count === null) {
+                count = 0;
+            } else {
+                count = parseInt(count);
+            }
+            count++;
+            localStorage.setItem('myPageVisitCount', count);
+            document.getElementById('onPageVisitCount').innerText = count;
+
+            // Also log to console for easy checking
+            console.log("On-page visit counter incremented to: " + count);
+        }
+
+        // Call the function when the page loads
+        window.onload = incrementAndDisplayCounter;
+    </script>
+    <p><button onclick="localStorage.removeItem('myPageVisitCount'); location.reload();">Reset On-Page Counter for This Browser</button></p>
+</body>
+</html>
